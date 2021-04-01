@@ -3,3 +3,62 @@ AZ204 - (2) Create serverless logic with Azure Functions
 - case: escalator company which invested in IoT tech, reads temperature data of gears in escalators, flags are added when temp. overheat is hit
 - case goal: model an azure service to handle all various data inputs / styles from different IoTs of multiple escalators
 - case apprach: use serverless tech of azure with not infrastructure demands for it
+- serverless compute or FaaS (function as a service); Azure Logic Apps and Azure Functions are two core services
+- automatically scales up or down, depending on use
+- "Azure Functions is a serverless application platform. It allows developers to host business logic that can be executed without provisioning infrastructure."
+- functions allow multiple languages including C#, F#, JavaScript, Python, and PowerShell Core, also use NuGet or NPM
+- some properties of Azure functions:
+
+1. provisions optimally, on use, scales automatically
+2. stateless but can store state to associated storage service
+3. event driven / based, they are triggered, eg. by HTTP REST API call or que message being enqueued to which it is subscribed
+
+- functions have a max 10 and default 5 minutes timeout, if you need more then you need to host it within a VM, the HTTP response based functions are limited to 2.5 minutes
+- with another service called "Durable Functions" one can orchestrate executions of multiple functions without any timeout
+- functions scale 1 for every 10 seconds to max 200 instances where each instance can handle multiple calls, different ttriggers have different limitations
+
+- CONSUMPTION PLANS: two types: Consumption and App Service plan
+- consumption based has timeout limit of 5 to 10 max minutes, app service is unlimited but does not count as "serverless"
+- function app azure service requires a storage account service; new or existing one
+- we create a sample function in the tutorial through the portal, then go to triggers, which are:
+
+1. Blob storage - new or updated blob detected
+2. Azure Cosmos DB - inserts or updates are detected
+3. Event Grid - new event from Event Grid picked up
+4. HTTP - HTTP call
+5. Microsoft Graph Events - web hooks from Microsoft Graph resource types
+6. Queue storage - new item received on queue
+7. Service Bus - new item received on SB queue
+8. Timer - time scheduled activation
+
+- BINDINGS: represent a declarative JSON way of connecting data and services to the function, an expressive way to connect logic inputs / outputs to the function without imperative function code
+- functions can have zero or more input / output bindings
+- triggers are special input binding types with the capability of starting the function logic
+- bindings are written inside function.json file, here is an example of input que trigger and output storage binding:
+
+{
+	"bindings": [
+		{
+			"name": "order",
+			"type": "queueTrigger",
+			"direction": "in",
+			"queueName": "myqueue-items",
+			"connection": "MY_STORAGE_ACCOUNT_APP_SETTING"
+		},
+		{
+			"name": "$return",
+			"type": "table",
+			"direction": "out",
+			"tableName": "outTable",
+			"connection": "MY_STORAGE_ACCOUNT_APP_SETTING"
+		},
+	]
+}
+
+- here is a function HTTP trigger based URL i got: https://escalator-functions-vmandic01.azurewebsites.net/api/HttpTrigger1?code=3J8pFXv/DN7D3zcMdYwHz/8SManBwSyRAAPOqLEcSLaYi3BA7CNhMg==
+- the function was created with "function" auth level, but we can changed it to "anonymous" where we do not need to include the x-functions-key header or query string "code" value for authorization to activate the function logic
+- here is how to cURL it: curl --header "Content-Type: application/json" --header "x-functions-key: <your-function-key>" --request POST --data "{\"name\": \"Azure Function\"}" https://<your-url-here>
+- here is the full set up: curl --header "Content-Type: application/json" --header "x-functions-key: 3J8pFXv/DN7D3zcMdYwHz/8SManBwSyRAAPOqLEcSLaYi3BA7CNhMg==" --request POST --data "{\"name\": \"Azure Function\"}" https://escalator-functions-vmandic01.azurewebsites.net/api/HttpTrigger1
+
+
+
