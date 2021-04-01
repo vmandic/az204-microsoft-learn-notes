@@ -1,0 +1,49 @@
+AZ204 - Choose the best Azure service to automate your business processes - 44m
+
+- url: https://docs.microsoft.com/en-us/learn/modules/choose-azure-service-to-integrate-and-automate-business-processes/1-introduction
+- case example: bike renting management system which expands with new universites that are included as the system grows
+- case solution: leverage azure service to integrate existing bike management apps to lower maintenance costs and tech demands
+- lecture goal: recognize which azure sln fits best for your problem, ie: "Evaluate Azure services for integration and process automation scenarios"
+- Business processes modeled in software are often called workflows. Azure includes four different technologies that you can use to build and implement workflows that integrate multiple systems:
+
+1. Logic Apps (design-first)
+2. Microsoft Power Automate (design-first)
+3. WebJobs (code-first)
+4. Azure Functions (code-first)
+
+- common to all four services is: inputs, actions, conditions and outputs
+
+- LOGIC APPS: offers a UI workflow builder or a JSON notation to specify its flow
+- offers over 200 connectors, they allow connecting to external services, you can create your own with REST API
+
+- MICROSOFT POWER AUTOMATE (Microsoft Flow): for nondevelopers more friendlier approach, even with a mobile app Power Automate Mobile APPS
+- 4 different flow types:
+
+1. Automated - triggerd by some event
+2. Button - triggerd by user with clicking a button eg. from mobile app
+3. Scheduled - eventually on some timed trigger
+4. Business process - complex scenarios for multistep events
+
+- its built on top of Logic Apps and exposes their connectors, allows custom connectors
+
+- WEBJOBS: runs on top of App Service in azure, needs an App Service Plan, there are two types:
+
+1. Continuos - looped, running all the time
+2. Triggerd - scheduled or activated on event
+
+- supports multiple languages to script the job itself: PS1, Bash, PHP, Python, NodeJS/JS but the core logic and SDK is C# only (leverage a bigger WebJobs SDK with C# only through nuget) 
+- supports .NET FX and .NET Core
+
+- AZURE FUNCTIONS: runs small pieces of code in the cloud and do not worry about infrastructure, leverage consumption plans to pay as you go/consume
+- they automatically scale as demand increases
+- write fn code and manage it all from the Web UI azure portal, but also write code from an IDE or editor and version with git
+- four core templates to write azure functions are:
+
+1. HTTPTrigger - REST API activated
+2. TimerTrigger - timer based scheduled activation
+3. BlobTrigger - acitvated on azure storage blob changes, a blob is added
+4. CosmosDBTrigger - activated from Cosmos DB tracked changes of documents in a NoSql DB
+
+- when choosing webjobs vs functions you would go for webjobs because you'd like to reuse the existing appservice and add to it a webjob
+- you'd select webjobs if you need a more flexible and control over the object / input that changes, you can do that through the JobHost class of webjobs, eg. custom retry policy for calls to external systems can be modeled where with functions you can not do that like that
+- functions can not be a part of an existing app service
