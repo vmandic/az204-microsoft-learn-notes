@@ -1,0 +1,17 @@
+AZ204 - (3) Execute an Azure Function with triggers
+
+- url:  https://docs.microsoft.com/en-us/learn/modules/execute-azure-function-with-triggers/1-introduction
+- case: hair salon customers are missing appointments and we are building a software to send text SMS reminders through Azure Functions
+- we explore triggers again, list their types as we did in (2), one noticable difference is that we now also include "Event Hubs" based triggers which is not the same service as Event Grid: https://www.cognizantsoftvision.com/blog/azure-event-grid-vs-event-hubs/
+- key difference of hubs and grids (original reference from previous cognizantsoftvision link) is: "The noticeable difference between them is that Event Hubs are accepting only endpoints for the ingestion of data and they don’t provide a mechanism for sending data back to publishers. On the other hand, Event Grid sends HTTP requests to notify events that happen in publishers."
+- "Event Grid can trigger an Azure Function. In the case of Event Hubs, the Azure Function needs to pull and process an event."
+
+- assignment: create a timer based azure function on a linux CRON expression syntax schedule definition, eg. 0 */5 * * * * (execute every five minutes) where the segments are: {second} {minute} {hour} {day} {month} {day of the week}
+- timer triggers need two pieces of data: timestamp parameter name (an ID basically) and schedule CRON expression (six parts expression)
+- previous expression 0 */5 * * * * is read as "on the first second, of every fifth minute of every hour, of every day, of every month"
+- assignment: create a timer based function to run every 20 seconds
+
+- HTTP triggers recap as in (2), we recap authorization levels: Function (default or admin code / key), Anonymous (anyone can activate) and Admin (only admin ie. host code / key)
+- there are two types of keys: function and host, function activates only specific functions and host can activate ANY function within function app service that groups ie. hosts functions
+
+- Azure Blob Storage function activations part: https://docs.microsoft.com/en-us/learn/modules/execute-azure-function-with-triggers/7-blob-trigger
