@@ -1,4 +1,4 @@
-AZ204 - Choose the best Azure service to automate your business processes - 44m
+AZ204 - (1) Choose the best Azure service to automate your business processes - 44m
 
 - url: https://docs.microsoft.com/en-us/learn/modules/choose-azure-service-to-integrate-and-automate-business-processes/1-introduction
 - case example: bike renting management system which expands with new universites that are included as the system grows

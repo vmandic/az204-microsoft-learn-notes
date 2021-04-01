@@ -1,0 +1,5 @@
+AZ204 - (2) Create serverless logic with Azure Functions
+
+- case: escalator company which invested in IoT tech, reads temperature data of gears in escalators, flags are added when temp. overheat is hit
+- case goal: model an azure service to handle all various data inputs / styles from different IoTs of multiple escalators
+- case apprach: use serverless tech of azure with not infrastructure demands for it
