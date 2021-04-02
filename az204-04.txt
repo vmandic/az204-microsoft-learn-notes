@@ -1,0 +1,29 @@
+AZ204 - (4) Chain Azure Functions together using input and output bindings
+
+- this lecture builds and repeats on 1, 2, 3 reintroducing function bindings, types: input and output and will focus on combining functions
+- "bindings provide a declarative way to connect to data from within your code"
+- "This is powerful because you can connect to your data sources without having to code specific connection logic (like database connections or web API interfaces)."
+- triggers are special input bindings and functions can have ONLY ONE of those defined
+- bindings offer interaction with existing azure services and other third party services
+- common binding types are (there are more):
+
+1. Blob Storage
+2. Azure Service Bus Queues
+3. Azure Cosmos DB
+4. Azure Event Hubs
+5. External Files
+6. External Tables
+7. HTTP endpoints
+
+- bindings are defined in the function.json document and require three required properties: name, type and direction
+- a fourth common property is connection, specifying an app setting key for a connection string which is read from app settings
+- depending on type other poperties might be required, eg. blob type requires a path property specifying the blob which is tracked
+- here is a sample blob in binding listening to changes in blob named "thumbnail-images/{filename}:
+{
+  "name": "headshotBlob", (function parameter through which you access the data)
+  "type": "blob",
+  "path": "thumbnail-images/{filename}",
+  "connection": "HeadshotStorageConnection",
+  "direction": "in"
+}
+
