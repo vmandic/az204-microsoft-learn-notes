@@ -63,3 +63,26 @@ project = WebProject/WebProject.csproj
 ## Azure Database Migration Service
 
 Azure Database Migration Service is a fully managed service designed to enable seamless migrations from multiple database sources to Azure data platforms with minimal downtime (online migrations).
+
+## Manage azure storage account blob properties
+
+There are two types of additional data you can attach to blobs: system metadaa (some are settable and some not) and user-defined properties (name-value pairs).
+
+Depending on the API version .NET v12 or v11 you assign properties and then call SetPropertiesAsync() or SetHttpHeadersAsync(bloblHttpHeaders) function to apply them.
+
+- more details: <https://docs.microsoft.com/en-us/azure/storage/blobs/storage-blob-properties-metadata?tabs=dotnet>
+
+## Cosmos DB consistency levels
+
+CosmosDB offeres various levels of data consistency: Strong, Bunded staleness, Session, Consistent prefix and Eventual (from strongest to weakes consistency level).
+
+- more info on: https://docs.microsoft.com/en-us/azure/cosmos-db/consistency-levels>
+- **strong** ensures replication of write to all other geographic regions
+- **bounded stalness** ensures a K (number of versions) or T (after some delay time) of maxium delay for which a read in other region may delay for original region write
+  - "For a single region account, the minimum value of K and T is 10 write operations or 5 seconds. For multi-region accounts the minimum value of K and T is 100,000 write operations or 300 seconds."
+  - "Bounded staleness is frequently chosen by globally distributed applications that expect low write latencies but require total global order guarantee."
+  - same region reads occure the same as writes, but other regions are in K/T delay
+- **session** enables creating a session group that spans over to other geographic region ensuring read consistency but other zones outside session are in delay, the oreder of writes is maintained for other session reads
+- **consistent prefix** ensures the order of writes but all reads in delay even in same region
+- **eventual consistency** does not guarantee read order anywhere, the consumer might get older data, ideal for like counts, retweet, non-threaded comments...
+
