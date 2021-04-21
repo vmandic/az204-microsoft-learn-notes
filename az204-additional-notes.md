@@ -86,3 +86,4 @@ CosmosDB offeres various levels of data consistency: Strong, Bunded staleness, S
 - **consistent prefix** ensures the order of writes but all reads in delay even in same region
 - **eventual consistency** does not guarantee read order anywhere, the consumer might get older data, ideal for like counts, retweet, non-threaded comments...
 
+## API Managment manifest file
